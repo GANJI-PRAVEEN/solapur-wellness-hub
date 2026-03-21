@@ -1,6 +1,7 @@
 import { DAILY_REPORTS, WARDS, HOSPITALS } from "@/lib/mock-data";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, CartesianGrid, Legend, AreaChart, Area } from "recharts";
-import { BarChart3, TrendingUp, MapPin, Activity } from "lucide-react";
+import { BarChart3, TrendingUp, MapPin, Activity, Map } from "lucide-react";
+import SolapurMap from "@/components/SolapurMap";
 
 const CHART_COLORS = [
   "hsl(210 78% 38%)", "hsl(152 48% 42%)", "hsl(38 92% 50%)",
