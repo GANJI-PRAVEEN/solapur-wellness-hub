@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -6,8 +5,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useI18n, LangCode } from "@/lib/i18n";
+import { useState } from "react";
 
-const LANGUAGES = [
+const LANGUAGES: { code: LangCode; label: string; native: string }[] = [
   { code: "en", label: "English", native: "English" },
   { code: "mr", label: "Marathi", native: "मराठी" },
   { code: "hi", label: "Hindi", native: "हिन्दी" },
@@ -16,9 +17,9 @@ const LANGUAGES = [
 ];
 
 export function LanguageSelector() {
-  const [selected, setSelected] = useState("en");
+  const { lang, setLang } = useI18n();
   const [open, setOpen] = useState(false);
-  const current = LANGUAGES.find((l) => l.code === selected);
+  const current = LANGUAGES.find((l) => l.code === lang);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -29,21 +30,21 @@ export function LanguageSelector() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-44 p-1" align="end">
-        {LANGUAGES.map((lang) => (
+        {LANGUAGES.map((l) => (
           <button
-            key={lang.code}
+            key={l.code}
             onClick={() => {
-              setSelected(lang.code);
+              setLang(l.code);
               setOpen(false);
             }}
             className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-md transition-colors ${
-              selected === lang.code
+              lang === l.code
                 ? "bg-primary/10 text-primary font-medium"
                 : "hover:bg-muted text-foreground"
             }`}
           >
-            <span>{lang.native}</span>
-            <span className="text-xs text-muted-foreground">{lang.label}</span>
+            <span>{l.native}</span>
+            <span className="text-xs text-muted-foreground">{l.label}</span>
           </button>
         ))}
       </PopoverContent>
