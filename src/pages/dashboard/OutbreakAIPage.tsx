@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { DAILY_REPORTS, WARDS } from "@/lib/mock-data";
-import { AlertTriangle, Brain, TrendingUp, Shield, MapPin } from "lucide-react";
+import { AlertTriangle, Brain, TrendingUp, Shield, MapPin, Map } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import SolapurMap from "@/components/SolapurMap";
 
 const THRESHOLDS: Record<string, number> = {
   Dengue: 15, Malaria: 12, Typhoid: 10, Gastroenteritis: 18,
@@ -121,7 +122,30 @@ export default function OutbreakAIPage() {
         </div>
       </div>
 
-      {/* Ward Risk Map */}
+      {/* Interactive Outbreak Map */}
+      <div className="rounded-xl bg-card border p-5 mb-6 animate-in-up">
+        <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+          <Map className="h-4 w-4 text-primary" /> Outbreak Hotspot Map
+        </h3>
+        <p className="text-xs text-muted-foreground mb-3">
+          Ward boundaries colored by risk level · Circles show active outbreak zones · Markers show hospitals
+        </p>
+        <SolapurMap
+          showHospitals
+          showOutbreaks
+          showWardBoundaries
+          wardRiskLevels={wardRisk}
+          height="400px"
+        />
+        <div className="flex flex-wrap gap-4 mt-3 text-xs text-muted-foreground">
+          <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full bg-destructive" />Critical</span>
+          <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full bg-warning" />High</span>
+          <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full bg-primary" />Moderate</span>
+          <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full bg-muted-foreground" />Low</span>
+        </div>
+      </div>
+
+      {/* Ward Risk Grid (kept as secondary view) */}
       <div className="rounded-xl bg-card border p-5 mb-6 animate-in-up">
         <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
           <MapPin className="h-4 w-4 text-primary" /> Ward Risk Heatmap

@@ -1,6 +1,7 @@
 import { DAILY_REPORTS, WARDS, HOSPITALS } from "@/lib/mock-data";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, CartesianGrid, Legend, AreaChart, Area } from "recharts";
-import { BarChart3, TrendingUp, MapPin, Activity } from "lucide-react";
+import { BarChart3, TrendingUp, MapPin, Activity, Map } from "lucide-react";
+import SolapurMap from "@/components/SolapurMap";
 
 const CHART_COLORS = [
   "hsl(210 78% 38%)", "hsl(152 48% 42%)", "hsl(38 92% 50%)",
@@ -99,11 +100,11 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Bed Occupancy */}
-        <div className="rounded-xl bg-card border p-5 lg:col-span-2 animate-in-up">
+        <div className="rounded-xl bg-card border p-5 animate-in-up">
           <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
             <BarChart3 className="h-4 w-4 text-info" /> Hospital Bed Occupancy
           </h3>
-          <ResponsiveContainer width="100%" height={220}>
+          <ResponsiveContainer width="100%" height={280}>
             <BarChart data={bedData}>
               <XAxis dataKey="name" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 11 }} />
@@ -113,6 +114,23 @@ export default function AnalyticsPage() {
               <Bar dataKey="available" stackId="a" fill="hsl(152 48% 42%)" radius={[4, 4, 0, 0]} name="Available" />
             </BarChart>
           </ResponsiveContainer>
+        </div>
+
+        {/* Interactive Map */}
+        <div className="rounded-xl bg-card border p-5 animate-in-up">
+          <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+            <Map className="h-4 w-4 text-primary" /> Hospital & Resource Map
+          </h3>
+          <p className="text-xs text-muted-foreground mb-3">
+            Hospitals (markers), ward boundaries, and outbreak hotspots across Solapur
+          </p>
+          <SolapurMap showHospitals showOutbreaks showWardBoundaries height="340px" />
+          <div className="flex flex-wrap gap-3 mt-3 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full bg-destructive" />Critical zone</span>
+            <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full bg-warning" />High risk</span>
+            <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full bg-primary" />Moderate</span>
+            <span className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-full bg-muted-foreground" />Low</span>
+          </div>
         </div>
       </div>
     </div>
