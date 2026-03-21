@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { DAILY_REPORTS, WARDS } from "@/lib/mock-data";
-import { AlertTriangle, Brain, TrendingUp, Shield, MapPin } from "lucide-react";
+import { AlertTriangle, Brain, TrendingUp, Shield, MapPin, Map } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, ReferenceLine } from "recharts";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import SolapurMap from "@/components/SolapurMap";
 
 const THRESHOLDS: Record<string, number> = {
   Dengue: 15, Malaria: 12, Typhoid: 10, Gastroenteritis: 18,
