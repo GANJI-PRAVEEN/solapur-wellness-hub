@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { useAuth, ROLE_LABELS } from "@/lib/auth";
+import { useI18n } from "@/lib/i18n";
 import {
   Activity, LayoutDashboard, FileText, BarChart3, Users, Building2,
   CalendarCheck, Megaphone, Pill, Shield, Bell, LogOut, Menu, X, Settings
@@ -9,21 +10,22 @@ import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
 const NAV_ITEMS = [
-  { icon: LayoutDashboard, label: "Overview", path: "/dashboard" },
-  { icon: FileText, label: "Daily Reports", path: "/dashboard/reports" },
-  { icon: BarChart3, label: "Analytics", path: "/dashboard/analytics" },
-  { icon: Shield, label: "Outbreak AI", path: "/dashboard/outbreak" },
-  { icon: Users, label: "Doctors", path: "/dashboard/doctors" },
-  { icon: Building2, label: "Hospitals & Beds", path: "/dashboard/hospitals" },
-  { icon: Pill, label: "Medicine Stock", path: "/dashboard/medicines" },
-  { icon: CalendarCheck, label: "Appointments", path: "/dashboard/appointments-mgmt" },
-  { icon: Megaphone, label: "Campaigns", path: "/dashboard/campaigns-mgmt" },
-  { icon: Bell, label: "Alerts", path: "/dashboard/alerts-mgmt" },
-  { icon: Settings, label: "Audit Log", path: "/dashboard/audit" },
+  { icon: LayoutDashboard, labelKey: "dash.overview", path: "/dashboard" },
+  { icon: FileText, labelKey: "dash.dailyReports", path: "/dashboard/reports" },
+  { icon: BarChart3, labelKey: "dash.analytics", path: "/dashboard/analytics" },
+  { icon: Shield, labelKey: "dash.outbreakAI", path: "/dashboard/outbreak" },
+  { icon: Users, labelKey: "dash.doctors", path: "/dashboard/doctors" },
+  { icon: Building2, labelKey: "dash.hospitals", path: "/dashboard/hospitals" },
+  { icon: Pill, labelKey: "dash.medicineStock", path: "/dashboard/medicines" },
+  { icon: CalendarCheck, labelKey: "dash.appointments", path: "/dashboard/appointments-mgmt" },
+  { icon: Megaphone, labelKey: "dash.campaigns", path: "/dashboard/campaigns-mgmt" },
+  { icon: Bell, labelKey: "dash.alerts", path: "/dashboard/alerts-mgmt" },
+  { icon: Settings, labelKey: "dash.auditLog", path: "/dashboard/audit" },
 ];
 
 export default function DashboardLayout() {
   const { user, logout } = useAuth();
+  const { t } = useI18n();
   const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -56,7 +58,7 @@ export default function DashboardLayout() {
                 }`}
               >
                 <item.icon className="h-4 w-4 shrink-0" />
-                {item.label}
+                {t(item.labelKey)}
               </Link>
             );
           })}
@@ -68,7 +70,7 @@ export default function DashboardLayout() {
             <p className="text-xs text-sidebar-foreground/50">{user?.role ? ROLE_LABELS[user.role] : ""}</p>
           </div>
           <Button variant="ghost" size="sm" className="w-full justify-start text-sidebar-foreground/70 hover:text-sidebar-foreground" onClick={logout}>
-            <LogOut className="h-3.5 w-3.5 mr-2" /> Sign Out
+            <LogOut className="h-3.5 w-3.5 mr-2" /> {t("nav.signOut")}
           </Button>
         </div>
       </aside>
@@ -89,7 +91,7 @@ export default function DashboardLayout() {
             <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-destructive" />
           </Button>
           <Link to="/">
-            <Button variant="outline" size="sm">Public Site</Button>
+            <Button variant="outline" size="sm">{t("nav.publicSite")}</Button>
           </Link>
         </header>
         <main className="p-4 md:p-6">
