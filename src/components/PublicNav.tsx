@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
 import { Activity, Menu, X, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LanguageSelector } from "@/components/LanguageSelector";
 import { useState } from "react";
 
 export function PublicNav() {
