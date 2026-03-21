@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
 import { Activity, Menu, X, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LanguageSelector } from "@/components/LanguageSelector";
 import { useState } from "react";
 
 export function PublicNav() {
@@ -27,6 +28,7 @@ export function PublicNav() {
         </div>
 
         <div className="flex items-center gap-2">
+          <LanguageSelector />
           {user ? (
             <>
               <Button variant="ghost" size="icon" className="relative">
