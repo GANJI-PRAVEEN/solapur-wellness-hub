@@ -19,6 +19,16 @@ import ReportAnalyzerPage from "./pages/citizen/ReportAnalyzerPage";
 import RemindersPage from "./pages/citizen/RemindersPage";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import DashboardOverview from "./pages/dashboard/DashboardOverview";
+import ReportsPage from "./pages/dashboard/ReportsPage";
+import AnalyticsPage from "./pages/dashboard/AnalyticsPage";
+import OutbreakAIPage from "./pages/dashboard/OutbreakAIPage";
+import DoctorsManagePage from "./pages/dashboard/DoctorsManagePage";
+import HospitalsManagePage from "./pages/dashboard/HospitalsManagePage";
+import MedicinesManagePage from "./pages/dashboard/MedicinesManagePage";
+import AppointmentsManagePage from "./pages/dashboard/AppointmentsManagePage";
+import CampaignsManagePage from "./pages/dashboard/CampaignsManagePage";
+import AlertsManagePage from "./pages/dashboard/AlertsManagePage";
+import AuditLogPage from "./pages/dashboard/AuditLogPage";
 
 const queryClient = new QueryClient();
 
@@ -59,16 +69,16 @@ const App = () => (
               </ProtectedRoute>
             }>
               <Route index element={<DashboardOverview />} />
-              <Route path="reports" element={<DashboardOverview />} />
-              <Route path="analytics" element={<DashboardOverview />} />
-              <Route path="outbreak" element={<DashboardOverview />} />
-              <Route path="doctors" element={<DashboardOverview />} />
-              <Route path="hospitals" element={<DashboardOverview />} />
-              <Route path="medicines" element={<DashboardOverview />} />
-              <Route path="appointments-mgmt" element={<DashboardOverview />} />
-              <Route path="campaigns-mgmt" element={<DashboardOverview />} />
-              <Route path="alerts-mgmt" element={<DashboardOverview />} />
-              <Route path="audit" element={<DashboardOverview />} />
+              <Route path="reports" element={<ReportsPage />} />
+              <Route path="analytics" element={<AnalyticsPage />} />
+              <Route path="outbreak" element={<OutbreakAIPage />} />
+              <Route path="doctors" element={<DoctorsManagePage />} />
+              <Route path="hospitals" element={<HospitalsManagePage />} />
+              <Route path="medicines" element={<MedicinesManagePage />} />
+              <Route path="appointments-mgmt" element={<AppointmentsManagePage />} />
+              <Route path="campaigns-mgmt" element={<CampaignsManagePage />} />
+              <Route path="alerts-mgmt" element={<AlertsManagePage />} />
+              <Route path="audit" element={<AuditLogPage />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
