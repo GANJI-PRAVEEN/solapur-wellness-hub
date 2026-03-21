@@ -6,6 +6,7 @@ import {
   CalendarCheck, Megaphone, Pill, Shield, Bell, LogOut, Menu, X, Settings
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 const NAV_ITEMS = [
   { icon: LayoutDashboard, label: "Overview", path: "/dashboard" },
