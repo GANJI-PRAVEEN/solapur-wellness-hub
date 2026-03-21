@@ -83,6 +83,7 @@ export default function DashboardLayout() {
             <Menu className="h-4 w-4" />
           </Button>
           <div className="flex-1" />
+          <LanguageSelector />
           <Button variant="ghost" size="icon" className="relative">
             <Bell className="h-4 w-4" />
             <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-destructive" />

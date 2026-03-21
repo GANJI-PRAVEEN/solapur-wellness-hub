@@ -28,6 +28,7 @@ export function PublicNav() {
         </div>
 
         <div className="flex items-center gap-2">
+          <LanguageSelector />
           {user ? (
             <>
               <Button variant="ghost" size="icon" className="relative">
