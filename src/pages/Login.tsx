@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
+import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +10,7 @@ import { Activity, Loader2 } from "lucide-react";
 export default function LoginPage() {
   const { login, isLoading } = useAuth();
   const navigate = useNavigate();
+  const { t } = useI18n();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,7 +22,7 @@ export default function LoginPage() {
       await login(email, password);
       navigate(email.includes("smc.gov") ? "/dashboard" : "/citizen");
     } catch {
-      setError("Invalid credentials");
+      setError(t("login.invalid"));
     }
   };
 
@@ -42,31 +44,31 @@ export default function LoginPage() {
             <span className="font-bold text-foreground">SMC Health</span>
           </Link>
 
-          <h1 className="text-2xl font-bold text-foreground mb-1">Welcome back</h1>
-          <p className="text-sm text-muted-foreground mb-6">Sign in to access the health management system</p>
+          <h1 className="text-2xl font-bold text-foreground mb-1">{t("login.welcome")}</h1>
+          <p className="text-sm text-muted-foreground mb-6">{t("login.subtitle")}</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("login.email")}</Label>
               <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} required className="mt-1" />
             </div>
             <div>
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("login.password")}</Label>
               <Input id="password" type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required className="mt-1" />
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
-              Sign In
+              {t("login.submit")}
             </Button>
           </form>
 
           <p className="text-sm text-muted-foreground mt-4 text-center">
-            New citizen? <Link to="/register" className="text-primary font-medium hover:underline">Register here</Link>
+            {t("login.newCitizen")} <Link to="/register" className="text-primary font-medium hover:underline">{t("login.registerHere")}</Link>
           </p>
 
           <div className="mt-8 pt-6 border-t">
-            <p className="text-xs text-muted-foreground mb-3">Quick demo login:</p>
+            <p className="text-xs text-muted-foreground mb-3">{t("login.quickDemo")}</p>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { label: "Super Admin", email: "admin@smc.gov.in" },
@@ -77,7 +79,7 @@ export default function LoginPage() {
                 { label: "Viewer", email: "viewer@smc.gov.in" },
               ].map(u => (
                 <Button key={u.email} variant="outline" size="sm" className="text-xs justify-start" onClick={() => quickLogin(u.email)}>
-                  {u.label}
+                  {t(u.label) !== u.label ? t(u.label) : u.label}
                 </Button>
               ))}
             </div>
@@ -88,9 +90,9 @@ export default function LoginPage() {
       {/* Right - Brand */}
       <div className="hidden lg:flex flex-1 hero-gradient items-center justify-center p-12">
         <div className="max-w-md text-primary-foreground animate-in-up">
-          <h2 className="text-3xl font-bold mb-4 leading-tight">Protecting Solapur's Health, Digitally</h2>
+          <h2 className="text-3xl font-bold mb-4 leading-tight">{t("login.brandTitle")}</h2>
           <p className="text-primary-foreground/70 leading-relaxed">
-            Real-time disease monitoring, AI-powered outbreak prediction, citizen health services — empowering Solapur Municipal Corporation's public health mission.
+            {t("login.brandSubtitle")}
           </p>
         </div>
       </div>

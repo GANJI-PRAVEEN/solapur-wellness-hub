@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "@/lib/auth";
+import { useI18n } from "@/lib/i18n";
 import {
   Bell, CalendarCheck, Building2, Pill, Shield, Bot, Mic,
   Activity, ChevronRight, Heart, Users, FileText, MapPin
@@ -8,26 +9,27 @@ import { Button } from "@/components/ui/button";
 import { PublicNav } from "@/components/PublicNav";
 import { SAFETY_ALERTS, CAMPAIGNS } from "@/lib/mock-data";
 
-const FEATURES = [
-  { icon: CalendarCheck, title: "Book Appointments", desc: "Find doctors by specialty, ward, and availability. Book slots instantly.", link: "/citizen/appointments", color: "text-primary" },
-  { icon: Building2, title: "Hospital Resources", desc: "Real-time bed availability, machinery status across SMC hospitals.", link: "/citizen/resources", color: "text-secondary" },
-  { icon: Pill, title: "Medicine Checker", desc: "Search medicine stock at nearest SMC dispensaries.", link: "/citizen/resources", color: "text-warning" },
-  { icon: Shield, title: "Safety Alerts", desc: "Location-based health alerts for your ward and nearby areas.", link: "/citizen/alerts", color: "text-destructive" },
-  { icon: Bot, title: "AI Doctor", desc: "Chat with our AI assistant for symptom checking and basic advice.", link: "/citizen/ai-doctor", color: "text-info" },
-  { icon: Mic, title: "Voice Assistant", desc: "Speak naturally to book appointments or check information.", link: "/citizen/voice", color: "text-accent" },
-];
-
-const STATS = [
-  { value: "10", label: "Wards Covered", icon: MapPin },
-  { value: "50+", label: "Health Centers", icon: Building2 },
-  { value: "200+", label: "Doctors", icon: Heart },
-  { value: "1.2L", label: "Citizens Served", icon: Users },
-];
-
 export default function LandingPage() {
   const { user } = useAuth();
+  const { t } = useI18n();
   const activeAlerts = SAFETY_ALERTS.filter(a => a.severity === "high");
   const upcomingCampaigns = CAMPAIGNS.filter(c => c.status === "upcoming").slice(0, 2);
+
+  const FEATURES = [
+    { icon: CalendarCheck, title: t("feat.appts.title"), desc: t("feat.appts.desc"), link: "/citizen/appointments", color: "text-primary" },
+    { icon: Building2, title: t("feat.resources.title"), desc: t("feat.resources.desc"), link: "/citizen/resources", color: "text-secondary" },
+    { icon: Pill, title: t("feat.medicine.title"), desc: t("feat.medicine.desc"), link: "/citizen/resources", color: "text-warning" },
+    { icon: Shield, title: t("feat.alerts.title"), desc: t("feat.alerts.desc"), link: "/citizen/alerts", color: "text-destructive" },
+    { icon: Bot, title: t("feat.ai.title"), desc: t("feat.ai.desc"), link: "/citizen/ai-doctor", color: "text-info" },
+    { icon: Mic, title: t("feat.voice.title"), desc: t("feat.voice.desc"), link: "/citizen/voice", color: "text-accent" },
+  ];
+
+  const STATS = [
+    { value: "10", label: t("stats.wards"), icon: MapPin },
+    { value: "50+", label: t("stats.centers"), icon: Building2 },
+    { value: "200+", label: t("stats.doctors"), icon: Heart },
+    { value: "1.2L", label: t("stats.citizens"), icon: Users },
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -39,7 +41,7 @@ export default function LandingPage() {
           <div className="container flex items-center gap-2 text-sm">
             <Shield className="h-4 w-4 text-destructive shrink-0" />
             <span className="font-medium text-destructive">{activeAlerts[0].title}</span>
-            <Link to="/citizen/alerts" className="ml-auto text-destructive underline underline-offset-2 text-xs">View all</Link>
+            <Link to="/citizen/alerts" className="ml-auto text-destructive underline underline-offset-2 text-xs">{t("viewAll")}</Link>
           </div>
         </div>
       )}
@@ -51,28 +53,28 @@ export default function LandingPage() {
           <div className="max-w-2xl animate-in-up">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-primary-foreground/90 backdrop-blur-sm mb-6">
               <Activity className="h-3.5 w-3.5" />
-              Solapur Municipal Corporation
+              {t("hero.smc")}
             </div>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-primary-foreground leading-[1.1] mb-4">
-              Smart Public Health Management System
+              {t("hero.title")}
             </h1>
             <p className="text-primary-foreground/80 text-base md:text-lg leading-relaxed mb-8 max-w-lg">
-              Book appointments, check hospital resources, get health alerts, and access AI-powered health assistance — all in one place.
+              {t("hero.subtitle")}
             </p>
             <div className="flex flex-wrap gap-3">
               {user ? (
                 <Button asChild variant="hero" size="lg" className="bg-white text-primary hover:bg-white/90 shadow-lg">
                   <Link to={user.role === "citizen" ? "/citizen" : "/dashboard"}>
-                    Go to Dashboard <ChevronRight className="h-4 w-4" />
+                    {t("hero.goToDash")} <ChevronRight className="h-4 w-4" />
                   </Link>
                 </Button>
               ) : (
                 <>
                   <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 shadow-lg font-semibold active:scale-[0.97]">
-                    <Link to="/register">Register as Citizen</Link>
+                    <Link to="/register">{t("hero.register")}</Link>
                   </Button>
                   <Button asChild variant="outline" size="lg" className="border-white/30 text-primary-foreground hover:bg-white/10 active:scale-[0.97]">
-                    <Link to="/login">Staff Login</Link>
+                    <Link to="/login">{t("hero.staffLogin")}</Link>
                   </Button>
                 </>
               )}
@@ -103,8 +105,8 @@ export default function LandingPage() {
       {/* Features */}
       <section className="container py-16 md:py-20">
         <div className="text-center mb-12 animate-in-up">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Citizen Health Services</h2>
-          <p className="text-muted-foreground max-w-md mx-auto">Access healthcare services digitally — from your phone, for your family.</p>
+          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{t("feat.heading")}</h2>
+          <p className="text-muted-foreground max-w-md mx-auto">{t("feat.subhead")}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {FEATURES.map((f, i) => (
@@ -129,10 +131,10 @@ export default function LandingPage() {
           <div className="container py-16">
             <div className="flex items-end justify-between mb-8">
               <div>
-                <h2 className="text-2xl font-bold text-foreground mb-1">Upcoming Health Campaigns</h2>
-                <p className="text-sm text-muted-foreground">Register for free health drives and vaccination camps</p>
+                <h2 className="text-2xl font-bold text-foreground mb-1">{t("camp.heading")}</h2>
+                <p className="text-sm text-muted-foreground">{t("camp.subhead")}</p>
               </div>
-              <Link to="/citizen/campaigns" className="text-sm text-primary font-medium hover:underline hidden md:block">View all →</Link>
+              <Link to="/citizen/campaigns" className="text-sm text-primary font-medium hover:underline hidden md:block">{t("camp.viewAll")}</Link>
             </div>
             <div className="grid md:grid-cols-2 gap-5">
               {upcomingCampaigns.map(c => (
@@ -159,12 +161,12 @@ export default function LandingPage() {
         <div className="container py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <Activity className="h-4 w-4 text-primary" />
-            <span>© 2026 Solapur Municipal Corporation. Smart Public Health System.</span>
+            <span>{t("footer.copyright")}</span>
           </div>
           <div className="flex gap-4">
-            <Link to="/login" className="hover:text-foreground">Staff Portal</Link>
-            <a href="#" className="hover:text-foreground">Privacy Policy</a>
-            <a href="#" className="hover:text-foreground">Help</a>
+            <Link to="/login" className="hover:text-foreground">{t("footer.staffPortal")}</Link>
+            <a href="#" className="hover:text-foreground">{t("footer.privacy")}</a>
+            <a href="#" className="hover:text-foreground">{t("footer.help")}</a>
           </div>
         </div>
       </footer>

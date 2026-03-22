@@ -18,8 +18,11 @@ import AIDoctorPage from "./pages/citizen/AIDoctorPage";
 import VoiceAssistantPage from "./pages/citizen/VoiceAssistantPage";
 import ReportAnalyzerPage from "./pages/citizen/ReportAnalyzerPage";
 import RemindersPage from "./pages/citizen/RemindersPage";
+import TestReportsPage from "./pages/citizen/TestReportsPage";
+import MedicalBillsPage from "./pages/citizen/MedicalBillsPage";
 import DashboardLayout from "./pages/dashboard/DashboardLayout";
 import DashboardOverview from "./pages/dashboard/DashboardOverview";
+import PatientRecordsPage from "./pages/dashboard/PatientRecordsPage";
 import ReportsPage from "./pages/dashboard/ReportsPage";
 import AnalyticsPage from "./pages/dashboard/AnalyticsPage";
 import OutbreakAIPage from "./pages/dashboard/OutbreakAIPage";
@@ -46,47 +49,50 @@ const App = () => (
       <Toaster />
       <Sonner />
       <I18nProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
 
-            {/* Citizen routes */}
-            <Route path="/citizen" element={<ProtectedRoute><CitizenDashboard /></ProtectedRoute>} />
-            <Route path="/citizen/appointments" element={<AppointmentsPage />} />
-            <Route path="/citizen/resources" element={<ResourcesPage />} />
-            <Route path="/citizen/campaigns" element={<CampaignsPage />} />
-            <Route path="/citizen/alerts" element={<AlertsPage />} />
-            <Route path="/citizen/ai-doctor" element={<AIDoctorPage />} />
-            <Route path="/citizen/voice" element={<VoiceAssistantPage />} />
-            <Route path="/citizen/analyzer" element={<ReportAnalyzerPage />} />
-            <Route path="/citizen/reminders" element={<ProtectedRoute><RemindersPage /></ProtectedRoute>} />
+              {/* Citizen routes */}
+              <Route path="/citizen" element={<ProtectedRoute><CitizenDashboard /></ProtectedRoute>} />
+              <Route path="/citizen/appointments" element={<AppointmentsPage />} />
+              <Route path="/citizen/resources" element={<ResourcesPage />} />
+              <Route path="/citizen/campaigns" element={<CampaignsPage />} />
+              <Route path="/citizen/alerts" element={<AlertsPage />} />
+              <Route path="/citizen/ai-doctor" element={<AIDoctorPage />} />
+              <Route path="/citizen/voice" element={<VoiceAssistantPage />} />
+              <Route path="/citizen/analyzer" element={<ReportAnalyzerPage />} />
+              <Route path="/citizen/reminders" element={<ProtectedRoute><RemindersPage /></ProtectedRoute>} />
+              <Route path="/citizen/reports" element={<ProtectedRoute><TestReportsPage /></ProtectedRoute>} />
+              <Route path="/citizen/bills" element={<ProtectedRoute><MedicalBillsPage /></ProtectedRoute>} />
 
-            {/* Admin dashboard */}
-            <Route path="/dashboard" element={
-              <ProtectedRoute roles={["super_admin", "admin", "doctor", "field_staff", "viewer"]}>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }>
-              <Route index element={<DashboardOverview />} />
-              <Route path="reports" element={<ReportsPage />} />
-              <Route path="analytics" element={<AnalyticsPage />} />
-              <Route path="outbreak" element={<OutbreakAIPage />} />
-              <Route path="doctors" element={<DoctorsManagePage />} />
-              <Route path="hospitals" element={<HospitalsManagePage />} />
-              <Route path="medicines" element={<MedicinesManagePage />} />
-              <Route path="appointments-mgmt" element={<AppointmentsManagePage />} />
-              <Route path="campaigns-mgmt" element={<CampaignsManagePage />} />
-              <Route path="alerts-mgmt" element={<AlertsManagePage />} />
-              <Route path="audit" element={<AuditLogPage />} />
-            </Route>
+              {/* Admin dashboard */}
+              <Route path="/dashboard" element={
+                <ProtectedRoute roles={["super_admin", "admin", "doctor", "field_staff", "viewer"]}>
+                  <DashboardLayout />
+                </ProtectedRoute>
+              }>
+                <Route index element={<DashboardOverview />} />
+                <Route path="patient-records" element={<PatientRecordsPage />} />
+                <Route path="reports" element={<ReportsPage />} />
+                <Route path="analytics" element={<AnalyticsPage />} />
+                <Route path="outbreak" element={<OutbreakAIPage />} />
+                <Route path="doctors" element={<DoctorsManagePage />} />
+                <Route path="hospitals" element={<HospitalsManagePage />} />
+                <Route path="medicines" element={<MedicinesManagePage />} />
+                <Route path="appointments-mgmt" element={<AppointmentsManagePage />} />
+                <Route path="campaigns-mgmt" element={<CampaignsManagePage />} />
+                <Route path="alerts-mgmt" element={<AlertsManagePage />} />
+                <Route path="audit" element={<AuditLogPage />} />
+              </Route>
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
       </I18nProvider>
     </TooltipProvider>
   </QueryClientProvider>

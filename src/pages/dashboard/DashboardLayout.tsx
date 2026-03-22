@@ -4,7 +4,7 @@ import { useAuth, ROLE_LABELS } from "@/lib/auth";
 import { useI18n } from "@/lib/i18n";
 import {
   Activity, LayoutDashboard, FileText, BarChart3, Users, Building2,
-  CalendarCheck, Megaphone, Pill, Shield, Bell, LogOut, Menu, X, Settings
+  CalendarCheck, Megaphone, Pill, Shield, Bell, LogOut, Menu, X, Settings, FolderOpen
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
@@ -12,6 +12,7 @@ import { LanguageSelector } from "@/components/LanguageSelector";
 const NAV_ITEMS = [
   { icon: LayoutDashboard, labelKey: "dash.overview", path: "/dashboard" },
   { icon: FileText, labelKey: "dash.dailyReports", path: "/dashboard/reports" },
+  { icon: FolderOpen, labelKey: "dash.patientRecords", path: "/dashboard/patient-records" },
   { icon: BarChart3, labelKey: "dash.analytics", path: "/dashboard/analytics" },
   { icon: Shield, labelKey: "dash.outbreakAI", path: "/dashboard/outbreak" },
   { icon: Users, labelKey: "dash.doctors", path: "/dashboard/doctors" },
@@ -51,11 +52,10 @@ export default function DashboardLayout() {
                 key={item.path}
                 to={item.path}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-colors ${
-                  active
+                className={`flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-colors ${active
                     ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium"
                     : "text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent/50"
-                }`}
+                  }`}
               >
                 <item.icon className="h-4 w-4 shrink-0" />
                 {t(item.labelKey)}
