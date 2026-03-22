@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # Solapur Wellness Hub
+=======
+# Welcome to our project
+>>>>>>> f7de59484dc22c1fba65d0d05a48d0a48a552201
 
 Solapur Wellness Hub is a comprehensive Smart Public Health Management System intended to digitally empower the Solapur Municipal Corporation (SMC). It features a robust multi-role dashboard for citizens and medical staff, real-time analytics, online patient reports, and full multilingual support natively built into the client interface.
 
